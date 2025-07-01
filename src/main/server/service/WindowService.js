@@ -168,6 +168,13 @@ class WindowService {
             this.windows.delete(id);
             //等待等待，让子弹飞一会
             await new Promise(resolve => setTimeout(resolve, 2000));
+            WSService.broadcast({
+              type: "windowCloseResult", data: {
+                id: id,
+                code: 200,
+                status: 0
+              }
+            });
           }
         }
         if (this.windows.size === 0) {
@@ -355,6 +362,13 @@ class WindowService {
         } catch (e) {
           logger.error(`进程 ${data.pid} 已退出 e:${e.message}`);
         }
+        WSService.broadcast({
+          type: "windowCloseResult", data: {
+            id: data.id,
+            code: 200,
+            status: 0
+          }
+        });
       }
       this.windows.clear();
       this.lastMasterId = 0;
@@ -865,7 +879,9 @@ class WindowService {
       return;
     }
 
-
+    if(x<=this.lastMouseClick.x-5&&y<=this.lastMouseClick.y-5){
+      return;
+    }
     // const masterDpi = windowApi.getWindowDpi(this.masterHwnd) || 96 // 默认标准 DPI
     // const dipScale = masterDpi / 96.0
     const dipScale = 1;
@@ -966,6 +982,9 @@ class WindowService {
   async _handleKeyBoardEvent(event) {
     if (!this.isSyncing) return;
 
+    if(event.type !== EventType.EVENT_KEY_PRESSED){
+      return ;
+    }
     const winCode = this._convertLinuxToWindowsKeycode(event.keycode);
     if (!winCode) {
       return;
