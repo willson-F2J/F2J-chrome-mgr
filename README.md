@@ -12,11 +12,6 @@
 
 ---
 
-## 本工具适配的指纹内核
-### fingerprint-chromium [fingerprint-chromium](https://github.com/adryfish/fingerprint-chromium/blob/main/README-ZH.md)
-
----
-
 ## 免责声明
 
 本代码仅用于技术交流、学习，请勿用于非法、商业用途。本代码不保存任何用户数据，同时也不对用户数据负责，请知悉。
