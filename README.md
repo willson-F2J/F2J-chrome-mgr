@@ -146,12 +146,8 @@ npm run build:portable
 Chrome Power [chrome-power-app](https://github.com/zmzimpl/chrome-power-app)
 
 
-# 打赏作者
-###  [Aptos] 0xf8fd1014ed9798cae7b5621e4d76ace58de3199fe47ccc11d749bef2411a83b5
-
-###  [Ethereum] 0x9de3cae5047bcd624fe545161ef7022de868b768
-
-###  [Solana] 6fxBpA6Y8JgaGeJLPAZ4CwqoRwLbHFqr4qtDwRHLRawa
+# 内核教程开发
+###  指纹内核教程开发，进群联系或留言issues
 
 # 加入QQ群
 ![image](https://github.com/user-attachments/assets/e649031a-17a0-43c3-b787-af83bed42d5e)
