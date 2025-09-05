@@ -410,7 +410,10 @@ class WindowService {
       //缓存基础路径
       const cachePathDir = config.cachePath ? config.cachePath : this.appPath;
       if (!fs.existsSync(cachePathDir)) {
-        fs.mkdirSync(cachePathDir, { recursive: true, mode: 0o755 });
+        const status = fs.mkdirSync(cachePathDir, { recursive: true });
+        if (!status) {
+          throw new Error("缓存目录不可用");
+        }
       }
 
       //缓存路径
@@ -422,8 +425,12 @@ class WindowService {
       }
       //判断缓存路径是否存在
       if (!fs.existsSync(profileDir)) {
-        fs.mkdirSync(profileDir, { recursive: true, mode: 0o755 });
-        await this.winDB.update(id, { dir: profileDir });
+        const status = fs.mkdirSync(profileDir, { recursive: true });
+        if (status) {
+          await this.winDB.update(id, { dir: profileDir });
+        } else {
+          throw new Error("创建窗口缓存目录失败");
+        }
       }
 
 
@@ -518,13 +525,6 @@ class WindowService {
 
     logger.info(`打开环境的信息 ${winData}`);
     /**
-     * --fingerprint	指定指纹种子(seed)，启用后大部分指纹功能生效	32位整数
-     * --fingerprint-platform	指定操作系统类型	windows, linux, macos
-     * --fingerprint-platform-version	指定操作系统版本	不填时使用默认版本
-     * --fingerprint-brand	指定 User-Agent 和 User-Agent Data 中的浏览器品牌	Chrome, Edge, Opera, Vivaldi (默认Chrome)
-     * --fingerprint-brand-version	指定品牌的版本号	不填时使用默认版本
-     * --fingerprint-hardware-concurrency	指定 CPU 核心数	整数值（不提供时由指纹种子随机生成）
-     * --disable-non-proxied-udp	指定 WebRTC 策略，默认是禁用非代理 UDP 连接	建议保持默认设置
      * --lang	设置浏览器的语言	语言代码（如 zh-CN）
      * --accept-lang	设置浏览器接受的语言	语言代码（如 zh-CN,en-US）
      * --timezone	设置时区	时区（如Asia/Shanghai, UTC）
@@ -544,12 +544,7 @@ class WindowService {
       `--user-data-dir=${profileDir}`, //缓存文件
       "--no-default-browser-check", //禁用默认浏览器
       "--no-first-run",  //不是首次运行
-      "--restore-last-session", //恢复上次关闭页面
-      `--fingerprint=${winData.id}`,
-      `--fingerprint-hardware-concurrency=${fingerprint.cpuCore}`,
-      `--fingerprint-platform=${fingerprint.os}`,
-      `--fingerprint-brand-version=${fingerprint.chromeVersion}`,
-      `--fingerprint-brand=${fingerprint.browserBrand}`
+      "--restore-last-session" //恢复上次关闭页面
     ];
 
 
@@ -879,7 +874,7 @@ class WindowService {
       return;
     }
 
-    if(x<=this.lastMouseClick.x-5&&y<=this.lastMouseClick.y-5){
+    if (x <= this.lastMouseClick.x - 5 && y <= this.lastMouseClick.y - 5) {
       return;
     }
     // const masterDpi = windowApi.getWindowDpi(this.masterHwnd) || 96 // 默认标准 DPI
@@ -982,8 +977,8 @@ class WindowService {
   async _handleKeyBoardEvent(event) {
     if (!this.isSyncing) return;
 
-    if(event.type !== EventType.EVENT_KEY_PRESSED){
-      return ;
+    if (event.type !== EventType.EVENT_KEY_PRESSED) {
+      return;
     }
     const winCode = this._convertLinuxToWindowsKeycode(event.keycode);
     if (!winCode) {
