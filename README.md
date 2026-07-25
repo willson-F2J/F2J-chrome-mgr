@@ -9,7 +9,7 @@
 ---
 ## 安装包下载
 ### 点击下载 [by-chrome-app](https://github.com/bysstudio/by-chrome-app/releases/tag/main)
-
+####> 本项目基于 [bysstudio/by-chrome-app](https://github.com/bysstudio/by-chrome-app) 二次开发,遵循 AGPL 协议
 ---
 
 ## 免责声明
