@@ -144,6 +144,3 @@ Chrome Power [chrome-power-app](https://github.com/zmzimpl/chrome-power-app)
 # 内核教程开发
 ###  指纹内核教程开发，进群联系或留言issues
 
-# 加入QQ群
-![image](https://github.com/user-attachments/assets/e649031a-17a0-43c3-b787-af83bed42d5e)
-
