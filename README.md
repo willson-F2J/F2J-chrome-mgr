@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/5a1c5bbf-ed3e-44a9-8832-83250e04ed14)
+![image]()
 
 
 ## Chrome 多开管理工具，支持独立窗口，http/socks5 代理，窗口排列，同步器等
